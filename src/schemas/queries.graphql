@@ -1,3 +1,5 @@
 type Query {
-  hello(name: String): String!
+  getExpansions: [String]
+  tokenURI(expansionAddress: String! tokenID: Int!): String!
+  ownerOf(expansionAddress: String! tokenID: Int!): String!
 }

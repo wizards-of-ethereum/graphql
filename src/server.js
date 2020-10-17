@@ -1,7 +1,9 @@
-
 const { GraphQLServer } = require("graphql-yoga");
-const { importSchema } = require('graphql-import')
+const { importSchema } = require("graphql-import");
+
+const Web3 = require("./context/w3");
 const resolvers = require("./resolvers");
+
 const typeDefs = importSchema(__dirname + "/schemas/schema.graphql");
 
 const options = {
@@ -11,7 +13,13 @@ const options = {
   playground: "/playground",
 };
 
-const server = new GraphQLServer({ typeDefs, resolvers });
+const server = new GraphQLServer({
+  typeDefs,
+  resolvers,
+  context: {
+    web3: new Web3(),
+  },
+});
 server.start(options, ({ port }) =>
-  console.log(`Server is running on localhost:${port}`)
+  console.log(`Server is running on http://localhost:${port}/playground`)
 );
